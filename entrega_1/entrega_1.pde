@@ -1,10 +1,18 @@
+// Nombre: María Camila Serrato Restrepo
+// Código: 202410329
+// Título: E06.2 - Celebración de Año Nuevo Interactivo
+// Este sketch muestra una narrativa visual e interactiva
+// del cambio de año, con imágenes, sonido y animaciones.
+
 // Librería de sonido
 import processing.sound.*;
 
 // Variables globales
-int escena = 0;
+
+int escena = 0; // Variable que indica en qué momento de la historia estamos
+
 Campanadas campanadas;
-ArrayList<FuegoArtificial> fuegos = new ArrayList<FuegoArtificial>();
+ArrayList<FuegoArtificial> fuegos = new ArrayList<FuegoArtificial>(); // Lista de fuegos artificiales (cada uno es una animación independiente)
 boolean fuegosActivos = false;
 
 // Recursos visuales
@@ -18,6 +26,10 @@ boolean musicaReproducida = false;
 PFont fuentePersonalizada;
 
 void setup() {
+
+  // Configura el tamaño de la ventana y carga todos los recursos necesarios
+  // como imágenes, sonidos y fuentes antes de comenzar
+
   size(800, 600);
   campanadas = new Campanadas();
 
@@ -41,6 +53,9 @@ void setup() {
 }
 
 void draw() {
+
+  // Este método se repite y actualiza lo que se muestra en pantalla según la escena actual.
+
   background(30);
 
   switch (escena) {
@@ -75,6 +90,10 @@ void draw() {
 // EVENTOS
 
 void mousePressed() {
+
+  // Este evento se activa cuando el usuario hace clic con el mouse
+  // Sirve para avanzar a la siguiente escena y detener los sonidos si es necesario
+
   if (escena == 2 && musicaFondo.isPlaying()) musicaFondo.stop();
   if (escena == 4 && polvora.isPlaying()) polvora.stop();
   if (escena == 5 && celebracion.isPlaying()) celebracion.stop();
@@ -90,7 +109,13 @@ void mousePressed() {
   }
 }
 
-void keyPressed() {
+void keyPressed() {   // Evento que detecta cuándo se presiona una tecla
+
+  // Espacio (espacio) → suma campanadas
+  // Enter → inicia fuegos artificiales
+  // Flecha arriba → inicia sonido de celebración
+  // Flecha izquierda → permite devolverse una escena
+
   if (escena == 3 && key == ' ') campanadas.sumar();
   if (escena == 4 && keyCode == ENTER) {
     fuegosActivos = true;
@@ -167,6 +192,8 @@ void mostrarAbrazos() {
 // CLASES
 
 class Campanadas {
+
+  // Controla la lógica de las 12 campanadas de medianoche incluyendo el conteo, sonido y mensaje final
   int contador;
   int maximo = 12;
 
@@ -206,6 +233,10 @@ class Campanadas {
 }
 
 class FuegoArtificial {
+
+  // Representa una explosión compuesta por múltiples partículas
+  // Cada una se mueve y desaparece con el tiempo
+
   ArrayList<Particula> particulas;
   boolean activo = true;
 
@@ -232,6 +263,10 @@ class FuegoArtificial {
 }
 
 class Particula {
+
+  // Componente visual de cada fuego artificial
+  // Tiene posición, velocidad, color y duración limitada
+
   float x, y, vx, vy, vida;
   color c;
 
